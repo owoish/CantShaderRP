@@ -62,7 +62,7 @@
                     "use_depth_buffer": true
                 }
             ],
-            "output": "final"
+            "output": "vanilla_behaviour"
         },
         {
             "vertex_shader": "minecraft:post/transform",
@@ -70,7 +70,18 @@
             "inputs": [
                 {
                     "sampler_name": "Diffuse",
-                    "target": "final"
+                    "target": "vanilla_behaviour"
+                }
+            ],
+            "output": "optimized_camera"
+        },
+        {
+            "vertex_shader": "minecraft:post/zoom",
+            "fragment_shader": "minecraft:post/zoom",
+            "inputs": [
+                {
+                    "sampler_name": "Diffuse",
+                    "target": "optimized_camera"
                 }
             ],
             "output": "minecraft:main"

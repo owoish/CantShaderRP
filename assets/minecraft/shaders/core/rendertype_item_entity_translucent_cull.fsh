@@ -45,22 +45,26 @@ vec4 encodeFloat(float v) {
 }
 
 void main() {
-    if (marker == 1.0) {
-        vec2 pixel = floor(gl_FragCoord.xy);
-        if (pixel.y >= 1.0 || pixel.x >= 41.0) {
+    if (marker == 1.0) { //是指定的相机纹理
+        vec2 pixel = floor(gl_FragCoord.xy); //FragCoord是屏幕上定位的坐标
+        if (pixel.y >= 1.0 || pixel.x >= 41.0) { //只需要(0,0)到(40,0)的像素
             discard;
         }
 
-        vec3 pos0 = position0.xyz / position0.w;
-        vec3 pos1 = position1.xyz / position1.w;
-        vec3 pos2 = position2.xyz / position2.w;
-        vec3 pos3 = position3.xyz / position3.w;
-        vec3 pos = pos0 * 0.5 + pos2 * 0.5;
+        vec3 pos0 = position0.xyz / position0.w; //左下 这个w是用来取消插值的，还原了顶点坐标
+        vec3 pos1 = position1.xyz / position1.w; //右下
+        vec3 pos2 = position2.xyz / position2.w; //右上
+        vec3 pos3 = position3.xyz / position3.w; //左上
+        vec3 pos = pos0 * 0.5 + pos2 * 0.5; //中心位置（因为是对角平均）
 
-        vec3 pPos = gl_PrimitiveID % 2 == 0 ? pos1 : pos3;
+        //PrimitiveID:
+        vec3 pPos = gl_PrimitiveID % 2 == 0 ? pos1 : pos3; //一次PrimitiveID循环以游戏中被视为单元的被独立绘制的所有整体为单位
+        //这里pPos找到了顶点对应三角形的“顶角”坐标，pos1和pos3（右下和左上）
+        //Primitive ID=0对应了右下三角形，1则对应左上。
+        //                                                        uses3  uses 1 
         vec3 tangent = normalize(gl_PrimitiveID % 2 == 1 ? pos0 - pPos : pPos - pos2);
-        vec3 bitangent = normalize(gl_PrimitiveID % 2 == 0 ? pPos - pos0 : pos2 - pPos);
-
+        vec3 bitangent = normalize(gl_PrimitiveID % 2 == 0 ? pPos - pos0 : pos2 - pPos); 
+        //                                                  uses 1              uses 3
         // Data
         // 0-15 - projection matrix
         // 16-31 - view matrix
@@ -86,10 +90,10 @@ void main() {
         return;
     }
 
-    vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator;
-    if (color.a < 0.1) {
-        discard;
-    }
+    vec4 color = texture(Sampler0, texCoord0) * vertexColor * ColorModulator; //vanilla behaviour
+    if (color.a < 0.1) {//vanilla behaviour
+        discard;//vanilla behaviour
+    }//vanilla behaviour
 
-    fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+    fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);//vanilla behaviour
 }
