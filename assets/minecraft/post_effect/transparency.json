@@ -1,6 +1,7 @@
 {
     "targets" : {
-        "final": {}
+        "final": {},
+        "transformed": {}
     },
     "passes": [
         {
@@ -62,7 +63,7 @@
                     "use_depth_buffer": true
                 }
             ],
-            "output": "vanilla_behaviour"
+            "output": "final"
         },
         {
             "vertex_shader": "minecraft:post/transform",
@@ -70,10 +71,10 @@
             "inputs": [
                 {
                     "sampler_name": "Diffuse",
-                    "target": "vanilla_behaviour"
+                    "target": "final"
                 }
             ],
-            "output": "optimized_camera"
+            "output": "transformed"
         },
         {
             "vertex_shader": "minecraft:post/zoom",
@@ -81,7 +82,7 @@
             "inputs": [
                 {
                     "sampler_name": "Diffuse",
-                    "target": "optimized_camera"
+                    "target": "transformed"
                 }
             ],
             "output": "minecraft:main"
