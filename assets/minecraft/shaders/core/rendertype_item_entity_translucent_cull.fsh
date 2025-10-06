@@ -21,6 +21,10 @@ in vec4 position0;
 in vec4 position1;
 in vec4 position2;
 in vec4 position3;
+in vec4 position0a;
+in vec4 position1a;
+in vec4 position2a;
+in vec4 position3a;
 
 out vec4 fragColor;
 
@@ -101,10 +105,10 @@ void main() {
             discard;
         }
 
-        vec3 pos0 = position0.xyz / position0.w; //左下 这个w是用来取消插值的，还原了顶点坐标
-        vec3 pos1 = position1.xyz / position1.w; //右下
-        vec3 pos2 = position2.xyz / position2.w; //右上
-        vec3 pos3 = position3.xyz / position3.w; //左上
+        vec3 pos0 = position0a.xyz / position0a.w; //左下 这个w是用来取消插值的，还原了顶点坐标
+        vec3 pos1 = position1a.xyz / position1a.w; //右下
+        vec3 pos2 = position2a.xyz / position2a.w; //右上
+        vec3 pos3 = position3a.xyz / position3a.w; //左上
         vec3 pos = pos0 * 0.5 + pos2 * 0.5; //中心位置（因为是对角平均）
 
         //PrimitiveID:

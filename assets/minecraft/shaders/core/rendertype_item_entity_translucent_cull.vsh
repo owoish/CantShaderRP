@@ -29,6 +29,12 @@ out vec4 position0;
 out vec4 position1;
 out vec4 position2;
 out vec4 position3;
+out vec4 position0a;
+out vec4 position1a;
+out vec4 position2a;
+out vec4 position3a;
+
+
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0); //vanilla behaviour
@@ -41,6 +47,12 @@ void main() {
     position1 = 
     position2 = 
     position3 = vec4(0.0); //合法的连等符号
+
+    position0a = 
+    position1a = 
+    position2a = 
+    position3a = vec4(0.0); //合法的连等符号
+
 
     sphericalVertexDistance = fog_spherical_distance(Position); //vanilla behaviour
     cylindricalVertexDistance = fog_cylindrical_distance(Position); //vanilla behaviour
@@ -72,10 +84,10 @@ void main() {
     if (screen_marker > 0.0) { //如果顶点被标记成功
         vec3 worldSpace = Position; //忽略
         switch (gl_VertexID % 4) {
-            case 0: position0 = vec4(worldSpace, 1.0); break; //向各自的值写入对应的数据，反之为vec4(0)
-            case 1: position1 = vec4(worldSpace, 1.0); break;
-            case 2: position2 = vec4(worldSpace, 1.0); break;
-            case 3: position3 = vec4(worldSpace, 1.0); break;
+            case 0: position0a = vec4(worldSpace, 1.0); break; //向各自的值写入对应的数据，反之为vec4(0)
+            case 1: position1a = vec4(worldSpace, 1.0); break;
+            case 2: position2a = vec4(worldSpace, 1.0); break;
+            case 3: position3a = vec4(worldSpace, 1.0); break;
         }
 
         // TODO: better vertex positions

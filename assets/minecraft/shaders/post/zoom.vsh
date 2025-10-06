@@ -1,6 +1,7 @@
 #version 150
 
 #moj_import <minecraft:projection.glsl>
+#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D DiffuseSampler;
 
@@ -37,7 +38,7 @@ void main() {
     gl_Position = outPos;
     
     for (int i = 0; i < 16; i++) {
-        vec4 color = texelFetch(DiffuseSampler, ivec2(i, 0), 0);
+        vec4 color = texelFetch(DiffuseSampler, ivec2(i, round(ScreenSize.y)*0.6), 0);
         projection[i / 4][i % 4] = decodeFloat(color.rgb);
     }
 
@@ -46,12 +47,12 @@ void main() {
 
     projInv = inverse(projection);
 
-    float tx = decodeFloat(texelFetch(DiffuseSampler, ivec2(35, 0), 0).rgb);
-    float ty = decodeFloat(texelFetch(DiffuseSampler, ivec2(36, 0), 0).rgb);
-    float tz = decodeFloat(texelFetch(DiffuseSampler, ivec2(37, 0), 0).rgb);
-    float bx = decodeFloat(texelFetch(DiffuseSampler, ivec2(38, 0), 0).rgb);
-    float by = decodeFloat(texelFetch(DiffuseSampler, ivec2(39, 0), 0).rgb);
-    float bz = decodeFloat(texelFetch(DiffuseSampler, ivec2(40, 0), 0).rgb);
+    float tx = decodeFloat(texelFetch(DiffuseSampler, ivec2(35, round(ScreenSize.y)*0.6), 0).rgb);
+    float ty = decodeFloat(texelFetch(DiffuseSampler, ivec2(36, round(ScreenSize.y)*0.6), 0).rgb);
+    float tz = decodeFloat(texelFetch(DiffuseSampler, ivec2(37, round(ScreenSize.y)*0.6), 0).rgb);
+    float bx = decodeFloat(texelFetch(DiffuseSampler, ivec2(38, round(ScreenSize.y)*0.6), 0).rgb);
+    float by = decodeFloat(texelFetch(DiffuseSampler, ivec2(39, round(ScreenSize.y)*0.6), 0).rgb);
+    float bz = decodeFloat(texelFetch(DiffuseSampler, ivec2(40, round(ScreenSize.y)*0.6), 0).rgb);
     vec3 tangent = normalize(vec3(tx, ty, tz));
     vec3 bitangent = normalize(vec3(bx, by, bz));
     tbn = mat3(tangent, bitangent, normalize(cross(bitangent, tangent)));

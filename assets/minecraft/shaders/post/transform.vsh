@@ -4,6 +4,8 @@
 
 uniform sampler2D DiffuseSampler;
 
+in vec4 Position;
+
 out vec2 texCoord;
 flat out mat4 projection;
 flat out mat4 projInv;

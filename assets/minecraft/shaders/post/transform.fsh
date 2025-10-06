@@ -3,6 +3,8 @@
 
 #version 150
 
+#moj_import <minecraft:globals.glsl>
+
 uniform sampler2D DiffuseSampler;
 
 in vec2 texCoord;
@@ -13,14 +15,16 @@ flat in mat4 projInv;
 flat in mat3 tbn;
 
 void main() {
-    const float zoom = 0.8; // lower values = higher rotation angles, but lower fov and quality
+    const float zoom = 1.0; // lower values = higher rotation angles, but lower fov and quality
     vec2 transformed = texCoord * zoom;
     
     
     vec4 homog = projInv * vec4(transformed, -1.0, 1.0);
     vec3 near = homog.xyz / homog.w;
 
-    near = tbn * near;
+    if (!(gl_FragCoord.x<42 && gl_FragCoord.y<floor(ScreenSize.y*0.6)+1 && gl_FragCoord.y>floor(ScreenSize.y*0.6))) {
+        near = tbn * near;
+    }
 
     homog = projection * vec4(near, 1.0);
     transformed = homog.xy / homog.w;
