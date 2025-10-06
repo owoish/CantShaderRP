@@ -96,10 +96,9 @@ void main() {
         }
         return;
     }
-    vec2 screensize = floor(ScreenSize);
-    if (screen_marker == 1.0) { //是指定的相机纹理
+    else if (screen_marker == 1.0) { //是指定的相机纹理
         vec2 pixel = floor(gl_FragCoord.xy); //FragCoord是屏幕上定位的坐标
-        if (pixel.y >= screensize.y*0.6+1|| pixel.x >= 41.0) { //只需要(0,0)到(40,0)的像素
+        if (pixel.y >= 1.0 || pixel.x > 41.0+42.0 || pixel.x<=41) {
             discard;
         }
 
@@ -123,21 +122,21 @@ void main() {
         // 32-34 - position
         // 35-38 - tangent
         // 38-41 - bitangent
-        if (pixel.x < 16) {
+        if (pixel.x < 16+42) {
             mat4 mvp = ProjMat;
-            int index = int(pixel.x);
+            int index = int(pixel.x) - 42;
             float value = mvp[index / 4][index % 4];
             fragColor = encodeFloat(value);
-        } else if (pixel.x < 32) {
-            int index = int(pixel.x) - 16;
+        } else if (pixel.x < 32+42) {
+            int index = int(pixel.x) - 16 - 42;
             float value = ModelViewMat[index / 4][index % 4];
             fragColor = encodeFloat(value);
-        } else if (pixel.x < 35) {
-            fragColor = encodeFloat1024(pos[int(pixel.x) - 32]);
-        } else if (pixel.x < 38) {
-            fragColor = encodeFloat1024(tangent[int(pixel.x) - 35]);
-        } else if (pixel.x < 41) {
-            fragColor = encodeFloat1024(bitangent[int(pixel.x) - 38]);
+        } else if (pixel.x < 35+42) {
+            fragColor = encodeFloat1024(pos[int(pixel.x) - 32 - 42]);
+        } else if (pixel.x < 38+42) {
+            fragColor = encodeFloat1024(tangent[int(pixel.x) - 35 - 42]);
+        } else if (pixel.x < 41+42) {
+            fragColor = encodeFloat1024(bitangent[int(pixel.x) - 38 - 42]);
         }
         return;
     }

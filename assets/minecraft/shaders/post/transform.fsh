@@ -22,7 +22,7 @@ void main() {
     vec4 homog = projInv * vec4(transformed, -1.0, 1.0);
     vec3 near = homog.xyz / homog.w;
 
-    if (!(gl_FragCoord.x<42 && gl_FragCoord.y<floor(ScreenSize.y*0.6)+1 && gl_FragCoord.y>floor(ScreenSize.y*0.6))) {
+    if (gl_FragCoord.y > 1.0 || gl_FragCoord.x >= 84.0 || gl_FragCoord.x < 0.0) {
         near = tbn * near;
     }
 

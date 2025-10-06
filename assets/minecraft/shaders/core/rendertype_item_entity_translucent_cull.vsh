@@ -91,8 +91,8 @@ void main() {
         }
 
         // TODO: better vertex positions
-        vec2 bottomLeftCorner = vec2(-1.0,0.2); //最终屏幕坐标系范围为-1到1，左下到右上
-        vec2 topRightCorner = vec2(1.0, 0.3);
+        vec2 bottomLeftCorner = vec2(-1.0); //最终屏幕坐标系范围为-1到1，左下到右上
+        vec2 topRightCorner = vec2(1.0, 0.1);
         switch (gl_VertexID % 4) {
             case 0: gl_Position = vec4(bottomLeftCorner.x, topRightCorner.y,   -1, 1); break;
             case 1: gl_Position = vec4(bottomLeftCorner.x, bottomLeftCorner.y, -1, 1); break;

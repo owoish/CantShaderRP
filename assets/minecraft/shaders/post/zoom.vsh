@@ -37,9 +37,10 @@ void main() {
     vec4 outPos = corners[gl_VertexID];
     gl_Position = outPos;
     
-    for (int i = 0; i < 16; i++) {
-        vec4 color = texelFetch(DiffuseSampler, ivec2(i, floor(ScreenSize.y)*0.6), 0);
-        projection[i / 4][i % 4] = decodeFloat(color.rgb);
+    for (int i = 0+42; i < 16+42; i++) {
+        int temp =i-42;
+        vec4 color = texelFetch(DiffuseSampler, ivec2(temp, 0), 0);
+        projection[temp / 4][temp % 4] = decodeFloat(color.rgb);
     }
 
     projection[3][0] = 0.0;
@@ -47,12 +48,12 @@ void main() {
 
     projInv = inverse(projection);
 
-    float tx = decodeFloat(texelFetch(DiffuseSampler, ivec2(35, floor(ScreenSize.y)*0.6), 0).rgb);
-    float ty = decodeFloat(texelFetch(DiffuseSampler, ivec2(36, floor(ScreenSize.y)*0.6), 0).rgb);
-    float tz = decodeFloat(texelFetch(DiffuseSampler, ivec2(37, floor(ScreenSize.y)*0.6), 0).rgb);
-    float bx = decodeFloat(texelFetch(DiffuseSampler, ivec2(38, floor(ScreenSize.y)*0.6), 0).rgb);
-    float by = decodeFloat(texelFetch(DiffuseSampler, ivec2(39, floor(ScreenSize.y)*0.6), 0).rgb);
-    float bz = decodeFloat(texelFetch(DiffuseSampler, ivec2(40, floor(ScreenSize.y)*0.6), 0).rgb);
+    float tx = decodeFloat(texelFetch(DiffuseSampler, ivec2(35+42, 0), 0).rgb);
+    float ty = decodeFloat(texelFetch(DiffuseSampler, ivec2(36+42, 0), 0).rgb);
+    float tz = decodeFloat(texelFetch(DiffuseSampler, ivec2(37+42, 0), 0).rgb);
+    float bx = decodeFloat(texelFetch(DiffuseSampler, ivec2(38+42, 0), 0).rgb);
+    float by = decodeFloat(texelFetch(DiffuseSampler, ivec2(39+42, 0), 0).rgb);
+    float bz = decodeFloat(texelFetch(DiffuseSampler, ivec2(40+42, 0), 0).rgb);
     vec3 tangent = normalize(vec3(tx, ty, tz));
     vec3 bitangent = normalize(vec3(bx, by, bz));
     tbn = mat3(tangent, bitangent, normalize(cross(bitangent, tangent)));
