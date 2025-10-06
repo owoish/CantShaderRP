@@ -37,10 +37,9 @@ void main() {
     vec4 outPos = corners[gl_VertexID];
     gl_Position = outPos;
     
-    for (int i = 0+42; i < 16+42; i++) {
-        int temp =i-42;
-        vec4 color = texelFetch(DiffuseSampler, ivec2(temp, 0), 0);
-        projection[temp / 4][temp % 4] = decodeFloat(color.rgb);
+    for (int i = 0; i < 16; i++) {
+        vec4 color = texelFetch(DiffuseSampler, ivec2(i + 42, 0), 0);
+        projection[i / 4][i % 4] = decodeFloat(color.rgb);
     }
 
     projection[3][0] = 0.0;
