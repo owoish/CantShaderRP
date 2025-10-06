@@ -2,4 +2,4 @@
 
 Adds some simple shaders for mapmaking.
 
-Used with Cant shader Datapack.
+Works with Cant shader Datapack.

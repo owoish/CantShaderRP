@@ -52,8 +52,6 @@ vec4 encodeFloat(float v) {
 }
 
 void main() {
-    Sampler0;
-    ScreenSize;
     if (marker == 1.0) { //是指定的相机纹理
         vec2 pixel = floor(gl_FragCoord.xy); //FragCoord是屏幕上定位的坐标
         if (pixel.y >= 1.0 || pixel.x >= 41.0) { //只需要(0,0)到(40,0)的像素
@@ -101,7 +99,7 @@ void main() {
     vec2 screensize = floor(ScreenSize);
     if (screen_marker == 1.0) { //是指定的相机纹理
         vec2 pixel = floor(gl_FragCoord.xy); //FragCoord是屏幕上定位的坐标
-        if (pixel.y >= ScreenSize.y*0.6|| pixel.x >= 41.0) { //只需要(0,0)到(40,0)的像素
+        if (pixel.y >= screensize.y*0.6+1|| pixel.x >= 41.0) { //只需要(0,0)到(40,0)的像素
             discard;
         }
 
